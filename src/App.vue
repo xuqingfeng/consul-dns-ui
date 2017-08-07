@@ -70,10 +70,8 @@
         name: 'app',
         data() {
             return {
-                github_link: 'https://github.com/xuqingfeng/consul-dns',
                 services: {},
-                serviceFocused: {ID: "", Address: "", Port: null},
-                test: {}
+                serviceFocused: {ID: "", Address: "", Port: null}
             }
         },
         mounted() {
