@@ -1,0 +1,16 @@
+version: '3'
+services:
+  consul:
+    image: consul:latest
+    environment:
+      CONSUL_LOCAL_CONFIG: '{"domain": "consul", "recursors": ["223.5.5.5", "8.8.8.8"], "http_api_response_headers": {"Access-Control-Allow-Origin": "*"}}'
+    ports:
+      - "8500:8500"
+      - "8600:8600/tcp"
+      - "8600:8600/udp"
+  consul-dns-ui:
+    image: xuqingfeng/consul-dns-ui:latest
+    depends_on:
+      - consul
+    ports:
+      - "8000:80"
