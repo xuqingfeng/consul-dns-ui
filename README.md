@@ -3,7 +3,7 @@
 
 ## Build
 
-``` bash
+```bash
 # install dependencies
 npm install
 
@@ -11,12 +11,12 @@ npm install
 npm run dev
 
 # build for production with minification
-npm run build
+CONSUL_ADDRESS=<consul_address> npm run build
 ```
 
 ## Example
 
-```
+```bash
 docker build -t xuqingfeng/consul-dns-ui --build-arg CONSUL_ADDRESS=127.0.0.1:8000 .
 
 docker-compose up -d
@@ -30,5 +30,5 @@ curl http://<consul_address>/v1/agent/services
 # deregister service
 curl -X PUT http://<consul_address>/v1/agent/service/deregister/test
 
-dig @127.0.0.1 -p 8600 test.service.consul
+dig @<consul_ip> -p <consul_dns_port> test.service.consul
 ```
