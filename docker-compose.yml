@@ -8,7 +8,14 @@ services:
     networks:
       custom_net:
         ipv4_address: 172.16.233.10
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
   consul-dns-ui:
+    build:
+      context: ./
+      args:
+        CONSUL_ADDRESS: 127.0.0.1:8000
     image: xuqingfeng/consul-dns-ui:latest
     dns:
       - 172.16.233.10

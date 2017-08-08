@@ -7,28 +7,16 @@
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-CONSUL_ADDRESS=<consul_address> npm run build
+# build for production
+CONSUL_ADDRESS=<consul_address> CONSUL_DOMAIN_SUFFIX=<consul_domain_suffix> npm run build
 ```
 
 ## Example
 
 ```bash
-docker build -t xuqingfeng/consul-dns-ui --build-arg CONSUL_ADDRESS=127.0.0.1:8000 .
-
 docker-compose up -d
 
-# register service
-curl -i -X PUT -d '{"ID": "test", "Name": "test", "Address": "1.2.3.4", "Port": 3000}' http://<consul_address>/v1/agent/service/register
+open http://127.0.0.1:8000
 
-# list services
-curl http://<consul_address>/v1/agent/services
-
-# deregister service
-curl -X PUT http://<consul_address>/v1/agent/service/deregister/test
-
-dig @<consul_ip> -p <consul_dns_port> test.service.consul
+dig @127.0.0.1 consul.service.consul
 ```

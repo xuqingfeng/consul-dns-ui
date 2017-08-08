@@ -1,10 +1,11 @@
 # builder
-FROM node:6.10
+FROM node:6
 
 WORKDIR /app
 
 COPY package.json /app/
-RUN npm install
+RUN npm config set registry https://registry.npm.taobao.org && \
+    npm install
 
 COPY . /app/
 

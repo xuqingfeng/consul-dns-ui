@@ -1,5 +1,3 @@
-**/.*
-!.babelrc
+.git*
 node_modules
-example
 dist
