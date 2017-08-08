@@ -16,6 +16,8 @@
                     <fieldset class="form-group">
                         <label for="id">ID:</label>
                         <input id="id" type="text" class="form-control" required v-model="serviceFocused.ID">
+                        <label for="name">Name:</label>
+                        <input id="name" type="text" class="form-control" required v-model="serviceFocused.Name">
                     </fieldset>
                     <fieldset class="form-group">
                         <label for="address">Address:</label>
@@ -36,6 +38,7 @@
         <table>
             <thead>
             <th>ID</th>
+            <th>Service</th>
             <th>Address</th>
             <th>Port</th>
             <th>DNS</th>
@@ -44,6 +47,7 @@
             <tbody>
             <tr v-for="s in services">
                 <td><a v-on:click="focus(s.ID)">{{ s.ID }}</a></td>
+                <td>{{ s.Service }}</td>
                 <td>{{ s.Address }}</td>
                 <td>{{ s.Port }}</td>
                 <td>{{ s.DNS }}</td>
@@ -71,7 +75,7 @@
         data() {
             return {
                 services: {},
-                serviceFocused: {ID: "", Address: "", Port: null}
+                serviceFocused: {ID: "", Name: "", Address: "", Port: null}
             }
         },
         mounted() {
@@ -84,7 +88,7 @@
                     // concatenate dns
                     for (var s in this.services) {
                         if (this.services.hasOwnProperty(s)) {
-                            this.services[s].DNS = this.services[s].ID + '.service.' + consul_domain_suffix;
+                            this.services[s].DNS = this.services[s].Service + '.service.' + consul_domain_suffix;
                         }
                     }
                 }, response => {
@@ -95,15 +99,18 @@
                 if (this.serviceFocused.Port > 0) {
                     var params = {
                         ID: this.serviceFocused.ID,
-                        Name: this.serviceFocused.ID,
+                        Name: this.serviceFocused.Name,
                         Address: this.serviceFocused.Address,
                         Port: parseInt(this.serviceFocused.Port)
                     };
 
                     // FIXME: https://github.com/hashicorp/consul/issues/865
                     this.$http.put('http://' + consul_address + '/v1/agent/service/register', params).then(response => {
-                        params.DNS = params.ID + '.service.' + consul_domain_suffix;
+                        params.DNS = params.Name + '.service.' + consul_domain_suffix;
                         this.services[params.ID] = params;
+
+                        // test
+                        this.services['test'] = {ID: "test", Name: "test", Address: "1.2.3.4", Port: 3000, DNS: "test.com"};
                     }, response => {
                         console.error(response.statusText);
                     })
@@ -121,6 +128,7 @@
             focus(id){
                 this.serviceFocused = {
                     ID: this.services[id].ID,
+                    Name: this.services[id].Service,
                     Address: this.services[id].Address,
                     Port: this.services[id].Port
                 };
