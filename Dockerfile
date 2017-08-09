@@ -1,3 +1,4 @@
+# require docker >= 17.05
 # builder
 FROM node:6
 

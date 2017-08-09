@@ -106,11 +106,10 @@
 
                     // FIXME: https://github.com/hashicorp/consul/issues/865
                     this.$http.put('http://' + consul_address + '/v1/agent/service/register', params).then(response => {
+                        params.Service = params.Name;
                         params.DNS = params.Name + '.service.' + consul_domain_suffix;
                         this.services[params.ID] = params;
-
-                        // test
-                        this.services['test'] = {ID: "test", Name: "test", Address: "1.2.3.4", Port: 3000, DNS: "test.com"};
+                        this.$forceUpdate();
                     }, response => {
                         console.error(response.statusText);
                     })
@@ -121,6 +120,7 @@
             deRegisterService(id){
                 this.$http.put('http://' + consul_address + '/v1/agent/service/deregister/' + id).then(response => {
                     delete this.services[id];
+                    this.$forceUpdate();
                 }, response => {
                     console.error(response.statusText);
                 })
