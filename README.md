@@ -1,6 +1,8 @@
 # consul-dns-ui
 > use consul purely as a dns server
 
+<p align="center"><img src="https://raw.githubusercontent.com/xuqingfeng/consul-dns-ui/master/consul-dns-ui.png" alt="demo" width=700/></p>
+
 ## Build
 
 ```bash
