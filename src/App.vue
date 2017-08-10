@@ -4,9 +4,6 @@
 
         <p>use consul purely as a dns server</p>
 
-        <div class="alert alert-info">
-        </div>
-
         <h2>Edit Service</h2>
 
         <div class="grid">
