@@ -4,37 +4,14 @@ services:
     image: consul:latest
     environment:
       CONSUL_ALLOW_PRIVILEGED_PORTS: 53
-      CONSUL_LOCAL_CONFIG: '{"domain": "consul", "ports": {"dns": 53}, "recursors": ["223.5.5.5", "8.8.8.8"], "http_config": {"response_headers": {"Access-Control-Allow-Origin": "*"}}}'
+      CONSUL_LOCAL_CONFIG: '{"domain": "consul", "ports": {"dns": 53}, "recursors": ["223.5.5.5", "8.8.8.8"], "http_config": {"response_headers": {"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "*", "Access-Control-Allow-Methods": "*"}}}'
     networks:
       custom_net:
         ipv4_address: 172.16.233.10
     ports:
       - "53:53/tcp"
       - "53:53/udp"
-  consul-dns-ui:
-    build:
-      context: ./
-      args:
-        CONSUL_ADDRESS: 127.0.0.1:8000
-    image: xuqingfeng/consul-dns-ui:latest
-    dns:
-      - 172.16.233.10
-    networks:
-      - custom_net
-    ports:
-      - "8000:80"
-    depends_on:
-      - consul
-  service-0:
-    image: xuqingfeng/hostname:latest
-    dns:
-      - 172.16.233.10
-    networks:
-      - custom_net
-    ports:
-      - "3000:8000"
-    depends_on:
-      - consul
+      - "8500:8500"
 
 networks:
   custom_net:
