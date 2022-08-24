@@ -1,12 +1,10 @@
-# require docker >= 17.05
 # builder
-FROM node:6
+FROM node:18
 
 WORKDIR /app
 
-COPY package.json /app/
-RUN npm config set registry https://registry.npm.taobao.org && \
-    npm install
+COPY package.json package-lock.json /app/
+RUN npm install
 
 COPY . /app/
 
