@@ -57,12 +57,8 @@ export default {
           "http://" + consul_address + "/v1/agent/service/register",
           requestOptions
         ).then(async (response) => {
-          // const isJson = response.headers.get('content-type').includes('application/json');
-          // const data = isJson && await response.json();
-
-          const data = await response.json();
           if (!response.ok) {
-            const err = data || response.statusText;
+            const err = response.statusText;
             console.error(err);
             return Promise.reject(response);
           }
