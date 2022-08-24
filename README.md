@@ -10,7 +10,7 @@
 npm install
 
 # build for production
-CONSUL_ADDRESS=<consul_address> CONSUL_DOMAIN_SUFFIX=<consul_domain_suffix> npm run build
+VITE_CONSUL_ADDRESS=<consul_address> VITE_CONSUL_DOMAIN_SUFFIX=<consul_domain_suffix> npm run build
 ```
 
 ## Example

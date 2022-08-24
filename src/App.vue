@@ -1,6 +1,6 @@
 <script>
 var consul_address = import.meta.env.CONSUL_ADDRESS || "127.0.0.1:8500";
-var consul_domain_suffix = import.meta.env.CONSUL_DOMAIN_SUFFIX || "internal";
+var consul_domain_suffix = import.meta.env.CONSUL_DOMAIN_SUFFIX || "consul";
 
 // log env vars
 console.info("CONSUL_ADDRESS: " + consul_address);
